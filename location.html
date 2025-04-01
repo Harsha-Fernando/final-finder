@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enable Location - ATM & Pharmacy Finder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --text-color: #2d3436;
+            --background: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--background);
+            padding: 20px;
+        }
+
+        .location-container {
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .location-icon {
+            font-size: 5rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        h1 {
+            color: var(--text-color);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        p {
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .enable-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
+        }
+
+        .enable-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.3);
+        }
+
+        .enable-btn i {
+            margin-right: 8px;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .location-container {
+                padding: 0 20px;
+            }
+
+            .location-icon {
+                font-size: 4rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="location-container">
+        <i class="fas fa-map-marker-alt location-icon"></i>
+        <h1>Enable Location Services</h1>
+        <p>To find ATMs and pharmacies near you, we need access to your location. Please enable location services to continue.</p>
+        <button class="enable-btn" onclick="checkLocation()">
+            <i class="fas fa-location-arrow"></i>
+            Enable Location
+        </button>
+    </div>
+
+    <script>
+        function checkLocation() {
+            if (!navigator.geolocation) {
+                alert('Geolocation is not supported by your browser');
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    // Location access granted, redirect to main page
+                    window.location.href = 'index.html';
+                },
+                function(error) {
+                    if (error.code === 1) {
+                        alert('Please enable location access in your browser settings to continue');
+                    } else {
+                        alert('Unable to get your location. Please try again.');
+                    }
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0
+                }
+            );
+        }
+
+        // Check location permission on page load
+        checkLocation();
+    </script>
+</body>
+</html>
