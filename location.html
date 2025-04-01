@@ -127,8 +127,8 @@
 
             navigator.geolocation.getCurrentPosition(
                 function(position) {
-                    // Location access granted, redirect to main page
-                    window.location.href = 'index.html';
+                    // Location access granted, redirect to main page with parameter
+                    window.location.href = 'index.html?locationGranted=true';
                 },
                 function(error) {
                     if (error.code === 1) {
